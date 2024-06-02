@@ -21,6 +21,9 @@ let package = Package(
         .target(
             name: "AsyncSequenceSubscription",
             dependencies: ["TaskCancellerStore"]),
+        .testTarget(
+            name: "AsyncSequenceSubscriptionTests",
+            dependencies: ["AsyncSequenceSubscription"]),
         .target(
             name: "TaskCancellerStore"),
         .testTarget(
