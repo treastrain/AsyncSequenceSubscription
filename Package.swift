@@ -13,8 +13,14 @@ let package = Package(
         .visionOS(.v1),
     ],
     products: [
+        .library(
+            name: "AsyncSequenceSubscription",
+            targets: ["AsyncSequenceSubscription"]),
     ],
     targets: [
+        .target(
+            name: "AsyncSequenceSubscription",
+            dependencies: ["TaskCancellerStore"]),
         .target(
             name: "TaskCancellerStore"),
         .testTarget(
