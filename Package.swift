@@ -17,6 +17,9 @@ let package = Package(
             name: "AsyncSequenceSubscription",
             targets: ["AsyncSequenceSubscription"]),
     ],
+    dependencies: [
+        .package(url: "https://github.com/treastrain/TaskCancellerStore", exact: "0.1.0"),
+    ],
     targets: [
         .target(
             name: "AsyncSequenceSubscription",
@@ -24,11 +27,6 @@ let package = Package(
         .testTarget(
             name: "AsyncSequenceSubscriptionTests",
             dependencies: ["AsyncSequenceSubscription"]),
-        .target(
-            name: "TaskCancellerStore"),
-        .testTarget(
-            name: "TaskCancellerStoreTests",
-            dependencies: ["TaskCancellerStore"]),
     ]
 )
 

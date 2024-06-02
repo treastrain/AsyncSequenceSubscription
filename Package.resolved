@@ -1,0 +1,15 @@
+{
+  "originHash" : "14ec2d40e6d0b14b593fb65cb4e9561ca4cf11bfcef82ef293579f93dc627628",
+  "pins" : [
+    {
+      "identity" : "taskcancellerstore",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/treastrain/TaskCancellerStore",
+      "state" : {
+        "revision" : "23a79d8127f68b3478a1ff21fb7219b2142e261f",
+        "version" : "0.1.0"
+      }
+    }
+  ],
+  "version" : 3
+}
