@@ -1,0 +1,59 @@
+name: Swift - Build and Test
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  XCODE_SELECT_PATH: '/Applications/Xcode_15.4.app/Contents/Developer'
+
+jobs:
+  show_software_information:
+    name: Show software information
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-14, ubuntu-20.04, ubuntu-22.04]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - name: Set Xcode version
+      if: ${{ matrix.os == 'macos-14' }}
+      run: sudo xcode-select -s '${{ env.XCODE_SELECT_PATH }}'
+    - name: Show Swift version
+      run: swift --version
+    - name: Show Swift Package Manager version
+      run: swift package --version
+      
+  build_test:
+    name: Swift Build & Test
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-14, ubuntu-20.04, ubuntu-22.04]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - name: Set Xcode version
+      if: ${{ matrix.os == 'macos-14' }}
+      run: sudo xcode-select -s '${{ env.XCODE_SELECT_PATH }}'
+    - uses: actions/checkout@v4
+    - name: Build
+      run: swift build -v | tee swift-build_${{ matrix.os }}.log && exit ${PIPESTATUS[0]}
+    - name: Upload build log
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: swift build log (${{ matrix.os }})
+        path: |
+          swift-build_${{ matrix.os }}.log
+    - name: Run tests
+      run: swift test -v | tee swift-test_${{ matrix.os }}.log && exit ${PIPESTATUS[0]}
+    - name: Upload test log
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: swift test log (${{ matrix.os }})
+        path: |
+          swift-test_${{ matrix.os }}.log
