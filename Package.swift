@@ -17,6 +17,9 @@ let package = Package(
     targets: [
         .target(
             name: "TaskCancellerStore"),
+        .testTarget(
+            name: "TaskCancellerStoreTests",
+            dependencies: ["TaskCancellerStore"]),
     ]
 )
 
